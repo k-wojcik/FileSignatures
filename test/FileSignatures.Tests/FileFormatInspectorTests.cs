@@ -97,7 +97,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void SingleMatchIsReturned()
         {
-            var expected = new TestFileFormat(new byte[] { 0x42, 0x4D });
+            var expected = new TestFileFormat(new byte?[] { 0x42, 0x4D });
             var inspector = new FileFormatInspector(new FileFormat[] { expected });
             FileFormat? result;
 
@@ -112,8 +112,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void StreamIsReadUntilRequiredBufferIsReceived()
         {
-            var expected = new TestFileFormat(new byte[] { 0x00, 0x01 });
-            var incorrect = new TestFileFormat(new byte[] { 0x00, 0x02 });
+            var expected = new TestFileFormat(new byte?[] { 0x00, 0x01 });
+            var incorrect = new TestFileFormat(new byte?[] { 0x00, 0x02 });
             var inspector = new FileFormatInspector(new FileFormat[] { expected, incorrect });
             FileFormat? result;
 
@@ -128,8 +128,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void StreamIsResetToOriginalPosition()
         {
-            var shortSignature = new TestFileFormat(new byte[] { 0x00, 0x01 });
-            var longSignaure = new TestFileFormat(new byte[] { 0x00, 0x01, 0x02 });
+            var shortSignature = new TestFileFormat(new byte?[] { 0x00, 0x01 });
+            var longSignaure = new TestFileFormat(new byte?[] { 0x00, 0x01, 0x02 });
             var inspector = new FileFormatInspector(new FileFormat[] { shortSignature, longSignaure });
             var position = 0L;
 
@@ -161,8 +161,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void MutipleMatchesReturnsFormatWithLongestHeader()
         {
-            var shortHeader = new TestFileFormat(new byte[] { 0x02, 0x00 });
-            var longHeader = new AnotherTestFileFormat(new byte[] { 0x02, 0x00, 0xFF });
+            var shortHeader = new TestFileFormat(new byte?[] { 0x02, 0x00 });
+            var longHeader = new AnotherTestFileFormat(new byte?[] { 0x02, 0x00, 0xFF });
 
             var inspector = new FileFormatInspector(new FileFormat[] { shortHeader, longHeader });
             FileFormat? result = null;
@@ -190,7 +190,7 @@ namespace FileSignatures.Tests
 
         private class TestFileFormat : FileFormat
         {
-            public TestFileFormat(byte[] signature) : base(signature, "example/test", "test")
+            public TestFileFormat(byte?[] signature) : base(signature, "example/test", "test")
             {
             }
         }
@@ -201,7 +201,7 @@ namespace FileSignatures.Tests
             {
             }
 
-            protected BaseFormat(string mediaType) : base(new byte[] { 0x00 }, mediaType, "")
+            protected BaseFormat(string mediaType) : base(new byte?[] { 0x00 }, mediaType, "")
             {
             }
 
@@ -220,7 +220,7 @@ namespace FileSignatures.Tests
 
         private class AnotherTestFileFormat : FileFormat
         {
-            public AnotherTestFileFormat(byte[] signature) : base(signature, "example/another", "test")
+            public AnotherTestFileFormat(byte?[] signature) : base(signature, "example/another", "test")
             {
             }
         }

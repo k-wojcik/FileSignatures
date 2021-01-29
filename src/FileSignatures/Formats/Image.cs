@@ -8,7 +8,7 @@
     /// </remarks>
     public abstract class Image : FileFormat
     {
-        protected Image(byte[] signature, string mediaType, string extension) : base(signature, mediaType, extension)
+        protected Image(byte?[] signature, string mediaType, string extension) : base(signature, mediaType, extension)
         {
         }
     }

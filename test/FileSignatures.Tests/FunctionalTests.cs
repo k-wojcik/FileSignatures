@@ -36,6 +36,7 @@ namespace FileSignatures.Tests
         [InlineData("test.odp", "application/vnd.oasis.opendocument.presentation")]
         [InlineData("test.vsd", "application/vnd.visio")]
         [InlineData("test.vsdx", "application/vnd.visio")]
+        [InlineData("test.webp", "image/webp")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
